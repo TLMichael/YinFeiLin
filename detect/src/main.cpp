@@ -4,10 +4,10 @@
 using namespace std;
 using namespace cv;
 
-bool show_visualization = true;
-bool sent_serial = false;
-bool save_video = false;
-bool sent_frame = true;
+bool show_visualization = true;     //控制imshow的显示功能
+bool sent_serial = false;   //控制串口传输
+bool save_video = false;    //控制视频存储
+bool sent_frame = true;     //控制http视频帧传输
 
 // const char *IP = "192.168.43.41";
 
