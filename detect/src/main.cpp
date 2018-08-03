@@ -6,7 +6,7 @@ using namespace cv;
 
 bool show_visualization = true;
 bool sent_serial = false;
-bool save_video = true;
+bool save_video = false;
 bool sent_frame = true;
 
 // const char *IP = "192.168.43.41";
@@ -24,7 +24,7 @@ int main()
 
     VideoCapture capture;
     VideoSaver saver;
-    // capture.open( "http://192.168.43.108:8080/video" );
+    // capture.open( "http://192.168.0.6:8080/video" );
     capture.open( 0 );
     if(!capture.isOpened())
     {
@@ -45,14 +45,14 @@ int main()
             cout << " --(!) No captured frame -- Break!" << endl;
             break;
         }
-        resize(frame, frame, Size(640, 480));
+        // resize(frame, frame, Size(640, 480));
         cv::putText(frame, GetCurrentTime2(), cv::Point(10, 30), cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 255), 1);
         frameShow = frame.clone();
 
         meter.start();
         if(status == 0)
         {
-            vector<bbox_t> results = detector.detect(frame, 0.05);
+            vector<bbox_t> results = detector.detect(frame, 0.15);
             vector<Rect> persons = person_filter(results);
             if(persons.size() > 0)
             {
@@ -78,7 +78,7 @@ int main()
             }
             else
             {
-                vector<bbox_t> results = detector.detect(frame, 0.05);
+                vector<bbox_t> results = detector.detect(frame, 0.15);
                 vector<Rect> persons = person_filter(results);
                 if(persons.size() == 0)
                     status = 0;
